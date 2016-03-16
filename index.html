@@ -375,7 +375,7 @@
                 }
             })
         } else {
-            tinhdiem(12);
+            tinhdiem(14);
         }
     }
 
@@ -463,73 +463,93 @@
                 }
                 customerArea.appendChild(label);
                 blockspring.runParsed("query-public-google-spreadsheet", { "query": "SELECT B, C, D, E WHERE A = " + this.value , "url": "https://docs.google.com/spreadsheets/d/1Yca1LQIHhKPkUEVL3sE4o1qBtRzqszqQMpjbb2MsbZI" }, { "api_key": "br_26892_d56eb893b96a41f5fbf188c05b2d9d0c4e6df811" }, function(res){
-                    var data = res.params.data;
-                    var label = document.getElementById('labelSearching');
-                    label.textContent = '';
-                    var customerArea = document.getElementById('customerArea');
+                    var data = res.params.data,
+                    	label = document.getElementById('labelSearching'),
+                    	customerArea = document.getElementById('customerArea'),
+                    	existCustomerDiv = document.getElementById('existCustomerDiv'),
+                    	newCustomerDiv = document.getElementById('newCustomerDiv');
                     // Check data
                     if (data) {
+                    	label.textContent = '';
                         if (data.length > 0) {
+
+                        	// Remove new customer area
+                            if (newCustomerDiv) {
+                                customerArea.removeChild(newCustomerDiv);
+                            }
+
+                        	// Check is exist div
+                        	if (existCustomerDiv) {
+
+                        	} else {
+                        		existCustomerDiv = document.createElement('div');
+                        		existCustomerDiv.setAttribute('id', 'existCustomerDiv');
+                        		customerArea.appendChild(existCustomerDiv);
+                        	}
                             // Customer is exist
-                            createTable(customerArea, data);
+                            createTable(existCustomerDiv, data);
                             
                             // set the index of data to update
                             setIndex();
                         } else {
-                            // New customer
-                            label.textContent = '';
-                            // Remove table
-                            var tbl = customerArea.querySelector('#list');
-                            if (tbl) {
-                                customerArea.removeChild(tbl);
+                            // Remove exist area
+                            if (existCustomerDiv) {
+                                customerArea.removeChild(existCustomerDiv);
                             }
 
-                            // Create form to input customer infor
-                            var form = document.createElement('form');
-                            form.setAttribute('role', 'form');
-                            form.setAttribute('class', 'form-horizontal');
-                            
-                            var fields = ['username', 'address', 'phonenumber'];
-                            var labels = ['Tên khách hàng', 'Địa chỉ', 'Số điện thoại'];
-                            for (var i = 0; i < fields.length; i ++) {
-                                
-                                var divFormGroup = document.createElement('div');
-                                divFormGroup.setAttribute('class','form-group');
+                            // Region of new customer
+                            if (newCustomerDiv) {
 
-                                var label = document.createElement('label');
-                                label.setAttribute('class', 'control-label col-sm-2');
-                                label.setAttribute('for', fields[i]);
-                                label.textContent = labels[i];
+                            } else {
+                            	newCustomerDiv = document.createElement('div');
+	                            newCustomerDiv.setAttribute('id', 'newCustomerDiv');
+	                            // Create form to input customer infor
+	                            var form = document.createElement('form');
+	                            form.setAttribute('role', 'form');
+	                            form.setAttribute('class', 'form-horizontal');
+	                            
+	                            var fields = ['username', 'address', 'phonenumber'];
+	                            var labels = ['Tên khách hàng', 'Địa chỉ', 'Số điện thoại'];
+	                            for (var i = 0; i < fields.length; i ++) {
+	                                
+	                                var divFormGroup = document.createElement('div');
+	                                divFormGroup.setAttribute('class','form-group');
 
-                                var divItem = document.createElement('div');
-                                divItem.setAttribute('class', 'col-sm-2');
+	                                var label = document.createElement('label');
+	                                label.setAttribute('class', 'control-label col-sm-2');
+	                                label.setAttribute('for', fields[i]);
+	                                label.textContent = labels[i];
 
-                                var item = document.createElement('input');
-                                item.setAttribute('id', fields[i]);
-                                item.setAttribute('class', 'form-control');
+	                                var divItem = document.createElement('div');
+	                                divItem.setAttribute('class', 'col-sm-2');
 
-                                divFormGroup.appendChild(label);
-                                divItem.appendChild(item);
-                                divFormGroup.appendChild(divItem);
+	                                var item = document.createElement('input');
+	                                item.setAttribute('id', fields[i]);
+	                                item.setAttribute('class', 'form-control');
 
-                                form.appendChild(divFormGroup);
+	                                divFormGroup.appendChild(label);
+	                                divItem.appendChild(item);
+	                                divFormGroup.appendChild(divItem);
 
+	                                form.appendChild(divFormGroup);
+
+	                            }
+
+	                            // Create div for button
+	                            var divBtn = document.createElement('div');
+	                            divBtn.setAttribute('class', 'col-sm-offset-2 col-sm-10');
+	                            var btn = document.createElement('button');
+	                            btn.setAttribute('class', 'btn btn-default');
+	                            btn.textContent = "Lưu";
+	                            btn.setAttribute('type','button');
+	                            divBtn.appendChild(btn);
+
+	                            form.appendChild(divBtn);
+	                            newCustomerDiv.appendChild(form);
+	                            customerArea.appendChild(newCustomerDiv);
+	                            var userInput = document.getElementById('username');
+	                            userInput.focus();
                             }
-
-                            // Create div for button
-                            var divBtn = document.createElement('div');
-                            divBtn.setAttribute('class', 'col-sm-offset-2 col-sm-10');
-                            var btn = document.createElement('button');
-                            btn.setAttribute('class', 'btn btn-default');
-                            btn.textContent = "Lưu";
-                            btn.setAttribute('type','button');
-                            divBtn.appendChild(btn);
-
-                            form.appendChild(divBtn);
-                            customerArea.appendChild(form);
-
-                            var userInput = document.getElementById('username');
-                            userInput.focus();
                         }
                     } else {
                         label.textContent = 'Lỗi nhập liệu, mã khách hàng phải là số';
