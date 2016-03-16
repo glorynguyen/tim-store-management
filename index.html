@@ -422,11 +422,22 @@
 
     function thongtinkhachhang() {
         var inputDiv = document.getElementById('inputDiv'),
-        customerIdField;
-        // Check customer arear is exist
-        var customerArea = document.getElementById('customerArea');
+        	customerIdField,
+        	customerArea = document.getElementById('customerArea'),
+        	existCustomerDiv = document.getElementById('existCustomerDiv'),
+        	newCustomerDiv = document.getElementById('newCustomerDiv');
         if (customerArea) {
             customerIdField = document.getElementById('customerID');
+            if (newCustomerDiv) {
+            	customerArea.removeChild(newCustomerDiv);
+            } else {
+            	customerIdField.disabled = false;
+            }
+            if (existCustomerDiv) {
+            	customerArea.removeChild(existCustomerDiv);
+            } else {
+            	customerIdField.disabled = false;
+            }
         } else {
             // Create customer div then append to div
             customerArea = document.createElement('div');
@@ -448,10 +459,16 @@
         }
         // Focus on customerID field
         customerIdField.focus();
+
+        /**
+		* FEATURE: CHECK AND ADD CUSTOMER
+        **/
         // Set event listener for customerIdField
         customerIdField.addEventListener('keydown', function(e) {
-            var customerArea = document.getElementById('customerArea');
             if (e.keyIdentifier == 'Enter' && this.value != '') {
+            	var customerArea = document.getElementById('customerArea'),
+            		customerIdField = document.getElementById('customerID');
+            	customerIdField.disabled = true;
                 // Create label
                 var label = document.getElementById('labelSearching');
                 if (label) {
@@ -562,6 +579,11 @@
               })
             }
         });
+		
+		// Set value of customerID to "" when user click
+		customerIdField.addEventListener('focus', function(e) {
+			this.value = "";
+		});
     }
 
     function setIndex() {
