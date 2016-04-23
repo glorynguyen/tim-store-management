@@ -20,7 +20,7 @@
     <script src="js/glory_table.js"></script>
     <script src="js/bootstrap.min.js"></script>
 </head>
-<body id="date" onload="onLoadFunction()">
+<body id="date" onload="checkLoginState()">
 <center><h5>HÓA ĐƠN BÁN HÀNG</h5></center>
 <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
 </fb:login-button>
@@ -668,7 +668,7 @@
     // for FB.getLoginStatus().
     if (response.status === 'connected') {
       // Logged into your app and Facebook.
-      if (response.authResponse.userID === 1012554222125674) {
+      if (response.authResponse.userID === "1012554222125674") {
 
       } else {
           debugger
