@@ -19,9 +19,16 @@
     <script src="https://cdn.blockspring.com/blockspring.js"></script>
     <script src="js/glory_table.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/sdk.js"></script>
 </head>
-<body id="date">
+<body id="date" onload="onLoadFunction()">
 <center><h5>HÓA ĐƠN BÁN HÀNG</h5></center>
+<div
+  class="fb-like"
+  data-share="true"
+  data-width="450"
+  data-show-faces="true">
+</div>
 <center><img style= "width:100px" src="image.jpg" onclick="reset1()"></center>
 <input type="file" name="file" id="file" onchange="onSelectedFile()">
     <div id="inputDiv">
@@ -624,7 +631,40 @@
         } else {
 
         }
-    } 
+    }
 </script>
 
+<script type="text/javascript">
+    // function onLoadFunction() {
+    //     FB.init({
+    //         appId      : 1724083217804216,
+    //         cookie     : true,  // enable cookies to allow the server to access 
+    //                             // the session
+    //         xfbml      : true,  // parse social plugins on this page
+    //         version    : 'v2.5' // use graph api version 2.5
+    //       });
+    //     FB.getLoginStatus(function(response) {
+    //         debugger
+    //     });
+    //     debugger
+    // }
+</script>
+
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1724083217804216',
+      xfbml      : true,
+      version    : 'v2.6'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
 </html>
