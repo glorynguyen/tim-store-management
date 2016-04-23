@@ -23,12 +23,8 @@
 </head>
 <body id="date" onload="onLoadFunction()">
 <center><h5>HÓA ĐƠN BÁN HÀNG</h5></center>
-<div
-  class="fb-like"
-  data-share="true"
-  data-width="450"
-  data-show-faces="true">
-</div>
+<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+</fb:login-button>
 <center><img style= "width:100px" src="image.jpg" onclick="reset1()"></center>
 <input type="file" name="file" id="file" onchange="onSelectedFile()">
     <div id="inputDiv">
