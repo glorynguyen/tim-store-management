@@ -5646,7 +5646,6 @@ try {
                     if (c.__markCompiled) c.__markCompiled();
                     k.provide('', {
                         getLoginStatus: function() {
-                            debugger
                             return h.getLoginStatus.apply(h, arguments);
                         },
                         getAuthResponse: function() {
