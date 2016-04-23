@@ -19,7 +19,6 @@
     <script src="https://cdn.blockspring.com/blockspring.js"></script>
     <script src="js/glory_table.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/sdk.js"></script>
 </head>
 <body id="date" onload="onLoadFunction()">
 <center><h5>HÓA ĐƠN BÁN HÀNG</h5></center>
@@ -671,7 +670,7 @@
     // for FB.getLoginStatus().
     if (response.status === 'connected') {
       // Logged into your app and Facebook.
-      debugger
+      testAPI();
     } else if (response.status === 'not_authorized') {
       // The person is logged into Facebook, but not your app.
       document.getElementById('status').innerHTML = 'Please log ' +
