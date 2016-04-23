@@ -21,7 +21,7 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/sdk.js"></script>
 </head>
-<body id="date">
+<body id="date" onload="onLoadFunction()">
 <center><h5>HÓA ĐƠN BÁN HÀNG</h5></center>
 <div
   class="fb-like"
@@ -635,19 +635,12 @@
 </script>
 
 <script type="text/javascript">
-    // function onLoadFunction() {
-    //     FB.init({
-    //         appId      : 1724083217804216,
-    //         cookie     : true,  // enable cookies to allow the server to access 
-    //                             // the session
-    //         xfbml      : true,  // parse social plugins on this page
-    //         version    : 'v2.5' // use graph api version 2.5
-    //       });
-    //     FB.getLoginStatus(function(response) {
-    //         debugger
-    //     });
-    //     debugger
-    // }
+    function onLoadFunction() {
+   
+        FB.getLoginStatus(function(response) {
+            debugger
+        });
+    }
 </script>
 
 <script>
