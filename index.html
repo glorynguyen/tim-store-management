@@ -691,6 +691,9 @@
 
   function onLoginSuccess() {
       var btn = document.getElementById('loginButton');
+      if (btn.children.length > 0) {
+          btn.removeChild(btn.children[0]);  
+      }
       debugger
 
   };
