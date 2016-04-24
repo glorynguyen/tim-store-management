@@ -22,8 +22,10 @@
 </head>
 <body id="date">
 <center><h5>HÓA ĐƠN BÁN HÀNG</h5></center>
-<fb:login-button scope="public_profile,email" id="loginButton" onlogin="checkLoginState();">
-</fb:login-button>
+<div id="loginButton">
+  <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+  </fb:login-button>
+</div>
 <center><img style= "width:100px" src="image.jpg" onclick="reset1()"></center>
 <input type="file" name="file" id="file" onchange="onSelectedFile()">
     <div id="inputDiv">
