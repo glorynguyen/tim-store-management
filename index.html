@@ -22,7 +22,7 @@
 </head>
 <body id="date">
 <center><h5>HÓA ĐƠN BÁN HÀNG</h5></center>
-<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+<fb:login-button scope="public_profile,email" id="loginButton" onlogin="checkLoginState();">
 </fb:login-button>
 <center><img style= "width:100px" src="image.jpg" onclick="reset1()"></center>
 <input type="file" name="file" id="file" onchange="onSelectedFile()">
@@ -669,7 +669,7 @@
     if (response.status === 'connected') {
       // Logged into your app and Facebook.
       if (response.authResponse.userID === "1012554222125674") {
-          debugger
+            onLoginSuccess();
       } else {
           debugger
       }
@@ -686,5 +686,11 @@
       debugger
     }
   }
+
+  function onLoginSuccess() {
+      var btn = document.getElementById('loginButton');
+      debugger
+
+  };
 </script>
 </html>
