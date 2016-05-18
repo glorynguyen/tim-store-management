@@ -183,10 +183,7 @@ function total(remove) {
 }
 
 function print() {
-    document.getElementById("file").hidden = true;
-    document.getElementById("inputDiv").hidden = true;
-    document.getElementById("print").hidden = true;
-    document.getElementById("choose").hidden = true;
+    hiddenElements(["file", "inputDiv", "textInput", "print", "choose", "tinhtien", "addmanual", "thongtinkhachhangbtn", "captioninput"], true);
     var datetime = "Ngày: " + getCurrentDateTime();
     var dateField = document.getElementById("dateField");
     dateField.innerHTML = datetime;
@@ -195,21 +192,12 @@ function print() {
 }
 
 function reset1() {
-    document.getElementById("file").hidden = false;
-    document.getElementById("inputDiv").hidden = false;
-    document.getElementById("textInput").focus();
-    document.getElementById("print").hidden = false;
-    document.getElementById("choose").hidden = false;
-    document.getElementById("tinhtien").innerHTML = "";
+    hiddenElements(["file", "inputDiv", "textInput", "print", "choose", "tinhtien", "addmanual", "thongtinkhachhangbtn", "captioninput"], false);
     reset();
 }
 
 function addMore() {
-    document.getElementById("file").hidden = false;
-    document.getElementById("inputDiv").hidden = false;
-    document.getElementById("textInput").focus();
-    document.getElementById("print").hidden = false;
-    document.getElementById("choose").hidden = false;
+    hiddenElements(["file", "inputDiv", "textInput", "print", "choose", "tinhtien", "addmanual", "thongtinkhachhangbtn", "captioninput"], false);
     document.getElementById("tinhtien").innerHTML = "";
 }
 
