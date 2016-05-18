@@ -356,9 +356,12 @@ function addManual() {
     }
 }
 
-function thongtinkhachhang() {
-    var inputDiv = document.getElementById('inputDiv'),
-        customerIdField,
+/*
+* This function is called when user clicked the button to show customer information.
+* @param {String} targetID: The id of where to place customer area
+*/
+function addCustomserArea(targetId) {
+    var customerIdField, inputDiv = document.getElementById(targetId),
         customerArea = document.getElementById('customerArea'),
         existCustomerDiv = document.getElementById('existCustomerDiv'),
         newCustomerDiv = document.getElementById('newCustomerDiv');
