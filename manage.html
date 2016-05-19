@@ -50,7 +50,7 @@
     <script type="text/javascript" src="js/authorization.js"></script>
 </head>
 
-<body onload="showTable('1IBpKFjcPYoZlfYjFaEn6UYnI5cKT5OhhX2-qobJYghw'); checkLoginState();" role="document">
+<body onload="onLoad()" role="document">
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -91,6 +91,7 @@
                 // This is only an example to create asynchronism
                 checkLoginState(resolve, reject);
             }
+            // showTable('1IBpKFjcPYoZlfYjFaEn6UYnI5cKT5OhhX2-qobJYghw'); checkLoginState();
         );
         p1.then(
             function(val) {
