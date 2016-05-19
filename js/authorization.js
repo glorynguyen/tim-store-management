@@ -72,8 +72,11 @@ function testAPI() {
     FB.api('/me', function(response) {
         if (response.id === "1012554222125674") {
             console.log('Successful login for: ' + response.name);
-            document.getElementById('status').innerHTML =
+            var status = document.getElementById('status');
+            if (status) {
+              status.innerHTML =
                 'Thanks for logging in, ' + response.name + '!';
+            }
             unLoggedUser(false);
         } else {
             document.getElementById('status').innerHTML =
