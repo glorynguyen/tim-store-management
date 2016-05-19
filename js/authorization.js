@@ -1,5 +1,6 @@
 // This is called with the results from from FB.getLoginStatus().
-function statusChangeCallback(response) {
+function statusChangeCallback(response, resolve, reject) {
+  debugger
     console.log('statusChangeCallback');
     console.log(response);
     // The response object is returned with a status field that lets the
@@ -8,7 +9,7 @@ function statusChangeCallback(response) {
     // for FB.getLoginStatus().
     if (response.status === 'connected') {
         // Logged into your app and Facebook.
-        testAPI();
+        testAPI(resolve, reject);
     } else if (response.status === 'not_authorized') {
         // The person is logged into Facebook, but not your app.
         unLoggedUser(true);
@@ -22,10 +23,11 @@ function statusChangeCallback(response) {
 // This function is called when someone finishes with the Login
 // Button.  See the onlogin handler attached to it in the sample
 // code below.
-function checkLoginState() {
-    FB.getLoginStatus(function(response) {
-        statusChangeCallback(response);
-    });
+function checkLoginState(resolve, reject) {
+  debugger
+  FB.getLoginStatus(function(response) {
+      statusChangeCallback(response, resolve, reject);
+  });
 }
 
 window.fbAsyncInit = function() {
@@ -67,10 +69,11 @@ window.fbAsyncInit = function() {
 
 // Here we run a very simple test of the Graph API after login is
 // successful.  See statusChangeCallback() for when this call is made.
-function testAPI() {
+function testAPI(resolve, reject) {
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me', function(response) {
         if (response.id === "1012554222125674") {
+          debugger
             console.log('Successful login for: ' + response.name);
             var status = document.getElementById('status');
             if (status) {
@@ -91,7 +94,6 @@ function unLoggedUser(isTrue) {
     if (nav) {
         if (isTrue) {
             nav.style.visibility = 'hidden';
-            debugger
             if (window.location.href !== "http://glorynguyen.github.io/") {
               window.location = 'http://glorynguyen.github.io/';
             }
