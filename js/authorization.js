@@ -24,7 +24,6 @@ function statusChangeCallback(response, resolve, reject) {
 // Button.  See the onlogin handler attached to it in the sample
 // code below.
 function checkLoginState(resolve, reject) {
-  debugger
   document.resolve = resolve;
   document.reject = reject;
   FB.getLoginStatus(function(response) {
@@ -76,6 +75,7 @@ function testAPI(resolve, reject) {
     FB.api('/me', function(response) {
         if (response.id === "1012554222125674") {
           debugger
+            document.resolve();
             console.log('Successful login for: ' + response.name);
             var status = document.getElementById('status');
             if (status) {
