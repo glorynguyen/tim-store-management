@@ -75,7 +75,9 @@ function testAPI(resolve, reject) {
     FB.api('/me', function(response) {
         if (response.id === "1012554222125674") {
           debugger
-            document.resolve();
+            if (document.resolve) {
+              document.resolve();
+            }
             console.log('Successful login for: ' + response.name);
             var status = document.getElementById('status');
             if (status) {
