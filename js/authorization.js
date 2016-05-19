@@ -49,9 +49,9 @@ window.fbAsyncInit = function() {
     //
     // These three cases are handled in the callback function.
 
-    FB.getLoginStatus(function(response) {
+   /* FB.getLoginStatus(function(response) {
         statusChangeCallback(response);
-    });
+    });*/
 
 };
 
