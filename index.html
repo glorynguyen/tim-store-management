@@ -106,6 +106,7 @@
           function statusChangeCallback(response) {
             console.log('statusChangeCallback');
             console.log(response);
+            debugger
             // The response object is returned with a status field that lets the
             // app know the current login status of the person.
             // Full docs on the response object can be found in the documentation
@@ -177,6 +178,7 @@
           function testAPI() {
             console.log('Welcome!  Fetching your information.... ');
             FB.api('/me', function(response) {
+              debugger
               if (response.id === "1012554222125674") {
                   console.log('Successful login for: ' + response.name);
                   document.getElementById('status').innerHTML =
