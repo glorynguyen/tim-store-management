@@ -1,47 +1,59 @@
+const ALERT_DEFAULT_VALUE = "Đang tải dữ liệu...";
+const ID_TABLE = "list";
+const SEPERATOR_SPLIT = ",";
+const SUM_ID = 'tongValue';
 function printElements(data) {
-    var alertField = document.getElementsByClassName("alert alert-success")[0];
-    alertField.setAttribute('class', 'alert alert-info');
-    alertField.getElementsByTagName('strong')[0].innerHTML = "Đang tải dữ liệu...";
-    var arr = data.split(String.fromCharCode(10));
-    var divRowTable = document.createElement('div');
-    divRowTable.setAttribute('class', 'row');
+    var alertField = document.getElementsByClassName("alert alert-success")[0],
+        arr = (data) ? data.split(String.fromCharCode(10)) : null, divRowTable,
+        length = (arr) ? arr[0].split(SEPERATOR_SPLIT).length : 0,
+        divMd12, tbl, thead, tr, td, i, j, th, tbdy;
 
-    var divMd12 = document.createElement('div');
+    /*Update alert field value*/
+    if (alertField) {
+        alertField.setAttribute('class', 'alert alert-info');
+        alertField.getElementsByTagName('strong')[0].innerHTML = ALERT_DEFAULT_VALUE;
+    }
+
+    /*Create div bootstrap for table*/
+    divRowTable = document.createElement('div');
+    divRowTable.setAttribute('class', 'row');
+    divMd12 = document.createElement('div');
     divMd12.setAttribute('class', 'col-ms-12');
 
-    var tbl = document.createElement('table');
-    tbl.setAttribute('id', 'list');
+    /*Create table*/
+    tbl = document.createElement('table');
+    tbl.setAttribute('id', ID_TABLE);
     tbl.setAttribute('class', 'table table-responsive');
-    //var tbl = document.getElementById('list');
     tbl.style.width = '100%';
     tbl.setAttribute('border', '1');
-    var thead = document.createElement('thead');
-    var tr = document.createElement('tr');
+    thead = document.createElement('thead');
+    tr = document.createElement('tr');
     tr.setAttribute('class', 'success');
-    var length = arr[0].split(",").length;
-    for (var j = 0; j < length; j++) {
-        var th = document.createElement('th');
-        th.appendChild(document.createTextNode(buldStringHeader(arr[0].split(",")[j])));
 
+    /*Create table header then append to the created table*/
+    for (j = 0; j < length; j++) {
+        th = document.createElement('th');
+        th.appendChild(document.createTextNode(buldStringHeader(arr[0].split(SEPERATOR_SPLIT)[j])));
         tr.appendChild(th);
     }
     thead.appendChild(tr);
-    var tbdy = document.createElement('tbody');
-    for (var i = 1; i < arr.length; i++) {
-        var tr = document.createElement('tr');
-        for (var j = 0; j < length; j++) {
-            var td = document.createElement('td');
+
+    /*Create the table body*/
+    tbdy = document.createElement('tbody');
+    for (i = 1; i < arr.length; i++) {
+        tr = document.createElement('tr');
+        for (j = 0; j < length; j++) {
+            td = document.createElement('td');
             td.onclick = function(e) {
                 //Check is filtered
-                var bd = this.parentNode.parentNode;
+                var bd = this.parentNode.parentNode, ul = document.createElement('ul'),
+                    li = document.createElement('li');
                 if (bd.getAttribute('filtered') != "true") {
                     // check is datetime column
                     if (this.parentNode.children[0] == this) {
                         // Check has menu yet
                         if (this.children.length == 0) {
                             // Create menu
-                            var ul = document.createElement('ul');
-                            var li = document.createElement('li');
                             li.textContent = 'Xem dữ liệu ngày: ' + this.innerHTML.split(" ")[0];
                             li.setAttribute('style', 'color:#E48BE4; cursor: pointer;');
                             li.onmouseover = function() {
@@ -50,21 +62,7 @@ function printElements(data) {
                             li.onmouseleave = function() {
                                 this.setAttribute('style', 'color: #E48BE4; cursor: pointer;');
                             }
-                            li.onclick = function() {
-                                var body = this.parentNode.parentNode.parentNode.parentNode;
-                                var keyArr = this.innerHTML.split(' ');
-                                for (var i = 0; i < body.childNodes.length; i++) {
-                                    if (body.childNodes[i].childNodes[0].innerHTML.split(' ')[0] != keyArr[keyArr.length - 1]) {
-                                        body.removeChild(body.childNodes[i]);
-                                        i--;
-                                    }
-                                };
-                                body.setAttribute('filtered', true);
-                                this.parentNode.parentNode.removeChild(this.parentNode);
-                                // Update tong tien
-                                document.getElementById('tongValue').innerHTML = tongTien();
-
-                            }
+                            li.onclick = onClickTableRow;
                             ul.appendChild(li);
                             this.appendChild(ul);
                         } else {
@@ -137,6 +135,23 @@ function printElements(data) {
 
 }
 
+/*Onclick table row*/
+function onClickTableRow() {
+    var body = this.parentNode.parentNode.parentNode.parentNode, 
+        keyArr = this.innerHTML.split(' '), i, sum = document.getElementById('tongValue');
+    for (i = 0; i < body.childNodes.length; i++) {
+        if (body.childNodes[i].childNodes[0].innerHTML.split(' ')[0] != keyArr[keyArr.length - 1]) {
+            body.removeChild(body.childNodes[i]);
+            i--;
+        }
+    };
+    body.setAttribute('filtered', true);
+    this.parentNode.parentNode.removeChild(this.parentNode);
+    // Update tong tien
+    if (sum) {
+        sum.innerHTML = tongTien();
+    }
+}
 
 // Build string for header table
 function buldStringHeader(str) {
