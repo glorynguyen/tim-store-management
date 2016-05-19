@@ -73,8 +73,8 @@ window.fbAsyncInit = function() {
 function testAPI(resolve, reject) {
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me', function(response) {
-        if (response.id === "1012554222125674") {
-          debugger
+        /*if (response.id === "1012554222125674") {
+          debugger*/
             if (document.resolve) {
               document.resolve();
             }
@@ -85,11 +85,11 @@ function testAPI(resolve, reject) {
                 'Thanks for logging in, ' + response.name + '!';*/
             }
             unLoggedUser(false);
-        } else {
+        /*} else {
             document.getElementById('status').innerHTML =
                 'User invalid';
             unLoggedUser(true);
-        }
+        }*/
     });
 }
 
