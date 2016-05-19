@@ -81,8 +81,8 @@ function testAPI(resolve, reject) {
             console.log('Successful login for: ' + response.name);
             var status = document.getElementById('status');
             if (status) {
-              status.innerHTML =
-                'Thanks for logging in, ' + response.name + '!';
+              /*status.innerHTML =
+                'Thanks for logging in, ' + response.name + '!';*/
             }
             unLoggedUser(false);
         } else {
