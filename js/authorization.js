@@ -91,6 +91,7 @@ function unLoggedUser(isTrue) {
     if (nav) {
         if (isTrue) {
             nav.style.visibility = 'hidden';
+            debugger
             if (window.location !== "http://glorynguyen.github.io/") {
               window.location = 'http://glorynguyen.github.io/';
             }
