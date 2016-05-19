@@ -91,7 +91,9 @@ function unLoggedUser(isTrue) {
     if (nav) {
         if (isTrue) {
             nav.style.visibility = 'hidden';
-            window.location = 'http://glorynguyen.github.io/';
+            if (window.location !== "http://glorynguyen.github.io/") {
+              window.location = 'http://glorynguyen.github.io/';
+            }
         } else {
             nav.style.visibility = 'inherit';
         }
