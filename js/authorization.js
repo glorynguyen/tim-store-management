@@ -25,6 +25,8 @@ function statusChangeCallback(response, resolve, reject) {
 // code below.
 function checkLoginState(resolve, reject) {
   debugger
+  FB.resolve = resolve;
+  FB.reject = reject;
   FB.getLoginStatus(function(response) {
       statusChangeCallback(response, resolve, reject);
   });
