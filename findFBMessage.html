@@ -40,6 +40,14 @@
             background-color: #f1f1f1;
             height: 100%;
         }
+
+        .align-left {
+            text-align: left;
+        }
+
+        .padding-bottom-10 {
+            padding-bottom: 10px;
+        }
         /* Set black background color, white text and some padding */
         
         footer {
@@ -65,16 +73,40 @@
   <script src="./js/jquery-ui.js"></script>
   <link rel="stylesheet" href="./css/style.css">
   <script>
-      $(function() {
-        $( "#datepicker" ).datepicker({
-        	changeMonth: true,
-      		changeYear: true
+        /*Zone for the datepicker*/
+        $(function() {
+            $( "#datepicker" ).datepicker({
+            	changeMonth: true,
+          		changeYear: true
+            });
         });
 
-        $( "#datepicker" ).select(function(dateText, inst) {
-        	debugger;
+        /*Zone for the find button*/
+        $(function() {
+            $( "#btnFind" )
+                .button()
+                .click(function() {
+                    var datepicker = $("#datepicker"),
+                        link = $("#url"),
+                        url = (link && link.length > 0) ? link[0].value : null;
+                        date = (datepicker && datepicker.length > 0) ? datepicker[0].value : null;
+                        dateMili = Date.parse(date);
+                    if (date && url) {
+                        window.open(addDateToUrl(url, dateMili));
+                    }
+                });
         });
-      });
+
+        function addDateToUrl(url, date) {
+            var index, startStr, endStr;
+            if (url && date) {
+                index = url.indexOf("last_message_timestamp=") + 23;
+                startStr = url.substring(0,index);
+                endStr = url.substring(index + 13,url.length);
+                url = startStr + date + endStr;
+            }
+            return url;
+        }
   </script>
 </head>
 
@@ -100,7 +132,26 @@
         </div>
     </nav>
     <div class="container-fluid text-center">
-        <p>Date: <input type="text" id="datepicker"></p>
+    <div class="row align-left">
+        <div class="col-md-2">
+            <form>
+                <div class="form-group">
+                    <label for="url">Link: </label>
+                    <input type="text" id="url" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="datepicker">Date: </label>
+                    <input type="text" id="datepicker" class="form-control">
+                </div>
+            </form>
+        <div class="padding-bottom-10">
+            <button id="btnFind">Find
+        </button>
+        </div>
+        </div>
+        
+        
+    </div>
     </div>
     <footer class="container-fluid text-center">
     </footer>
