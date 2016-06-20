@@ -39,46 +39,55 @@ function printElements(data) {
     thead.appendChild(tr);
 
     /*Create the table body*/
+    var dateFilter = document.getElementById('dateFilter').value;
     tbdy = document.createElement('tbody');
     for (i = 1; i < arr.length; i++) {
-        tr = document.createElement('tr');
-        for (j = 0; j < length; j++) {
-            td = document.createElement('td');
-            td.onclick = function(e) {
-                //Check is filtered
-                var bd = this.parentNode.parentNode, ul = document.createElement('ul'),
-                    li = document.createElement('li');
-                if (bd.getAttribute('filtered') != "true") {
-                    // check is datetime column
-                    if (this.parentNode.children[0] == this) {
-                        // Check has menu yet
-                        if (this.children.length == 0) {
-                            // Create menu
-                            li.textContent = 'Xem dữ liệu ngày: ' + this.innerHTML.split(" ")[0];
-                            li.setAttribute('style', 'color:#E48BE4; cursor: pointer;');
-                            li.onmouseover = function() {
-                                this.setAttribute('style', 'color: #6B066B; cursor: pointer;');
+        var date = revertDate(arr[i].split(',')[0].split(" ")[0]);
+        
+        if (dateFilter) {
+            if (date === dateFilter) {
+                
+            }    
+        } else {
+            tr = document.createElement('tr');
+            for (j = 0; j < length; j++) {
+                td = document.createElement('td');
+                td.onclick = function(e) {
+                    //Check is filtered
+                    var bd = this.parentNode.parentNode, ul = document.createElement('ul'),
+                        li = document.createElement('li');
+                    if (bd.getAttribute('filtered') != "true") {
+                        // check is datetime column
+                        if (this.parentNode.children[0] == this) {
+                            // Check has menu yet
+                            if (this.children.length == 0) {
+                                // Create menu
+                                li.textContent = 'Xem dữ liệu ngày: ' + this.innerHTML.split(" ")[0];
+                                li.setAttribute('style', 'color:#E48BE4; cursor: pointer;');
+                                li.onmouseover = function() {
+                                    this.setAttribute('style', 'color: #6B066B; cursor: pointer;');
+                                }
+                                li.onmouseleave = function() {
+                                    this.setAttribute('style', 'color: #E48BE4; cursor: pointer;');
+                                }
+                                li.onclick = onClickTableRow;
+                                ul.appendChild(li);
+                                this.appendChild(ul);
+                            } else {
+                                this.removeChild(this.children[0]);
                             }
-                            li.onmouseleave = function() {
-                                this.setAttribute('style', 'color: #E48BE4; cursor: pointer;');
-                            }
-                            li.onclick = onClickTableRow;
-                            ul.appendChild(li);
-                            this.appendChild(ul);
-                        } else {
-                            this.removeChild(this.children[0]);
                         }
                     }
+                };
+                if (j == length - 1) {
+                    td.appendChild(document.createTextNode(addCommas(arr[i].split(",")[j])));
+                } else {
+                    td.appendChild(document.createTextNode(arr[i].split(",")[j]));
                 }
-            };
-            if (j == length - 1) {
-                td.appendChild(document.createTextNode(addCommas(arr[i].split(",")[j])));
-            } else {
-                td.appendChild(document.createTextNode(arr[i].split(",")[j]));
+                tr.appendChild(td)
             }
-            tr.appendChild(td)
+            tbdy.appendChild(tr);
         }
-        tbdy.appendChild(tr);
     }
     tbl.appendChild(thead);
     tbl.appendChild(tbdy);
@@ -120,7 +129,7 @@ function printElements(data) {
     lbTong.innerHTML = 'Tổng: ';
     var lbTongValue = document.createElement('span');
     lbTongValue.setAttribute('class', 'label label-danger');
-    lbTongValue.setAttribute('id', 'tongValue');
+    lbTongValue.setAttribute('id', SUM_ID);
     lbTongValue.setAttribute('style', 'position: absolute;right: 7px;');
     lbTongValue.innerHTML = this.tongTien();
     h1Tong.appendChild(lbTong);
@@ -135,10 +144,18 @@ function printElements(data) {
 
 }
 
+function revertDate(date) {
+    var result, arr = date.split("-"), year, month, date;
+    if (arr.length === 3) {
+        result = arr[2] + "-" + arr[1] + "-" + arr[0];
+    }
+    return result;
+}
+
 /*Onclick table row*/
 function onClickTableRow() {
     var body = this.parentNode.parentNode.parentNode.parentNode, 
-        keyArr = this.innerHTML.split(' '), i, sum = document.getElementById('tongValue');
+        keyArr = this.innerHTML.split(' '), i, sum = document.getElementById(SUM_ID);
     for (i = 0; i < body.childNodes.length; i++) {
         if (body.childNodes[i].childNodes[0].innerHTML.split(' ')[0] != keyArr[keyArr.length - 1]) {
             body.removeChild(body.childNodes[i]);
@@ -377,6 +394,16 @@ function textFieldBlur() {
         progBar.setAttribute('class', 'progress-bar progress-bar-warning');
     }
 
+
+}
+
+function filterData() {
+    var divTbl = document.getElementById("generateAuto"),
+    table = (divTbl) ? divTbl.querySelector("#list") : null;
+    if (table) {
+        table.parentNode.removeChild(table);
+        showTable('1IBpKFjcPYoZlfYjFaEn6UYnI5cKT5OhhX2-qobJYghw');
+    }
 
 }
 
