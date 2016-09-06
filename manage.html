@@ -47,7 +47,7 @@
     <script src="https://cdn.blockspring.com/blockspring.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/table_googlesheet.js"></script>
-    <script type="text/javascript" src="js/authorization.js"></script>
+    <!--<script type="text/javascript" src="js/authorization.js"></script> -->
 </head>
 
 <body onload="onLoad()" role="document">
@@ -80,8 +80,10 @@
     <div class="container">
         <div class="starter-template">
             <h1 id="test" show=f alse>Bảng kê</h1>
-            <div class="alert alert-success" role="alert">
-                <strong>Kết nối thành công</strong>
+            <input id="dateFilter" type="date" name="day">
+            <button onclick="filterData()">Lọc</button>
+            <div id="alert" class="alert alert-info" style="margin-top: 10px" role="alert">
+                <strong>Đang tải dữ liệu</strong>
             </div>
             <div id="generateAuto" class="col-md-12"></div>
         </div>
@@ -89,20 +91,41 @@
 </body>
 <script>
     function onLoad() {
-        var p1 = new Promise(
+        /*var p1 = new Promise(
             // The resolver function is called with the ability to resolve or
             // reject the promise
             function(resolve, reject) {
                 // This is only an example to create asynchronism
                 checkLoginState(resolve, reject);
             }
-            // showTable('1IBpKFjcPYoZlfYjFaEn6UYnI5cKT5OhhX2-qobJYghw'); checkLoginState();
         );
         p1.then(
             function() {
-                showTable('1IBpKFjcPYoZlfYjFaEn6UYnI5cKT5OhhX2-qobJYghw');
+                showTablePromise('1IBpKFjcPYoZlfYjFaEn6UYnI5cKT5OhhX2-qobJYghw');
             }
-        );
+        );*/
+        showTablePromise();
+        
+
+    }
+
+    function showTablePromise() {
+        var p2 = new Promise (function (resolve, reject){
+            showTable('1IBpKFjcPYoZlfYjFaEn6UYnI5cKT5OhhX2-qobJYghw', resolve, reject);
+        });
+        p2.then(function() {
+            var alertField = document.getElementsByClassName("alert alert-info")[0];
+            alertField.setAttribute('class', 'alert alert-success');
+            alertField.getElementsByTagName('strong')[0].innerHTML = "Tải dữ liệu thành công";
+            // debugger;
+        }).catch(
+        // Log the rejection reason
+        function(reason) {
+            var alertField = document.getElementsByClassName("alert alert-info")[0];
+            alertField.setAttribute('class', 'alert alert-danger');
+            alertField.getElementsByTagName('strong')[0].innerHTML = "Tải dữ liệu thất bại";
+            console.log(reason);
+        });
     }
  </script>
 </html>
