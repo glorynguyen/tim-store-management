@@ -1,0 +1,23 @@
+{
+  "name": "tim",
+  "version": "1.0.0",
+  "description": "timstore management",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/glorynguyen/tim-store-management.git"
+  },
+  "author": "Vinh Nguyen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/glorynguyen/tim-store-management/issues"
+  },
+  "homepage": "https://github.com/glorynguyen/tim-store-management#readme",
+  "dependencies": {
+    "atomantic-edit-xlsx": "0.0.4",
+    "xlsx": "^0.8.1"
+  }
+}
