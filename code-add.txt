@@ -1,0 +1,26 @@
+'''''Define Object for Target Workbook
+Dim Target_Workbook As Workbook
+Dim Source_Workbook As Workbook
+Dim Target_Path As String
+
+'''''Assign the Workbook File Name along with its Path
+'''''Change path of the Target File name
+Target_Path = "test.xlsx"
+Set Target_Workbook = Workbooks.Open(Target_Path)
+Set Source_Workbook = ThisWorkbook
+
+Dim i As Integer
+
+For i = 1 To 100
+    Target_Workbook.Sheets(1).Cells(i, 1) = Source_Workbook.Sheets(1).Cells(i, 1)
+Next i
+
+
+'''''Close Target Workbook
+Source_Workbook.Save
+Target_Workbook.Save
+Target_Workbook.Close False
+
+'''''Process Completed
+MsgBox "Task Completed"
+

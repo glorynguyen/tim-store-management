@@ -20,14 +20,12 @@ app.use(function (req, res, next) {
     // Pass to next layer of middleware
     next();
 });
-var EditXlsx = require('atomantic-edit-xlsx');
-var xlsx = new EditXlsx('data/data.xlsx');
-var sheet = xlsx.sheet(0);
-sheet.update('A1', 'Title');
-xlsx.save('data/data1.xlsx');
-console.log(sheet);
+if(typeof require !== 'undefined') XLSX = require('xlsx');
+var workbook = XLSX.readFile('data/data.xlsx');
+var tui = workbook.SheetNames[1];
+// console.log(first_sheet_name);
 app.get('/get-hello', function (req, res) {
-  res.send('Hello Vinh');
+  res.send(tui);
 });
 console.log("==========end============");
 app.listen(3000);
